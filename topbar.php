@@ -9,9 +9,9 @@
 		if($taikhoan=='' || $matkhau ==''){
 			echo '<script>alert("Làm ơn không để trống")</script>';
 		}else{
-			$sql_select_admin = mysqli_query($con,"SELECT * FROM tbl_khachhang WHERE email='$taikhoan' AND password='$matkhau' LIMIT 1"); //select ra kh có tk
-			$count = mysqli_num_rows($sql_select_admin); //đếm sl dòng
-			$row_dangnhap = mysqli_fetch_array($sql_select_admin);  //chuyển sang mảng
+			$sql_select_admin = "SELECT * FROM tbl_khachhang WHERE email='$taikhoan' AND password='$matkhau' LIMIT 1"; //select ra kh có tk
+			$count = mysqli_query($con,$sql_select_admin); //đếm sl dòng
+			$row_dangnhap = mysqli_fetch_array($count);  //chuyển sang mảng
 			if($count>0 &&($input==$_SESSION['captcha'])){  //nếu dòng >0 tức có tk
 				$_SESSION['dangnhap_home'] = $row_dangnhap['name']; //nếu ok thì sẽ tạo 1 session phiên đăng nhập = tên khách hàng
 				$_SESSION['khachhang_id'] = $row_dangnhap['khachhang_id']; //tạo 1 session phiên mãkh = khách hàng id
@@ -36,7 +36,7 @@
 	 	$address = $_POST['address'];
 	 	$giaohang = $_POST['giaohang'];
  
- 		$sql_khachhang = mysqli_query($con,"INSERT INTO tbl_khachhang(name,phone,email,address,note,giaohang,password) values ('$name','$phone','$email','$address','$note','$giaohang','$password')");
+ 		$sql_khachhang = mysqli_query($con,"INSERT INTO tbl_khachhang(name,phone,email,address,note,giaohang,password) valuesz ('$name','$phone','$email','$address','$note','$giaohang','$password')");
  		$sql_select_khachhang = mysqli_query($con,"SELECT * FROM tbl_khachhang ORDER BY khachhang_id DESC LIMIT 1");
  		$row_khachhang = mysqli_fetch_array($sql_select_khachhang);
  		$_SESSION['dangnhap_home'] = $name;
