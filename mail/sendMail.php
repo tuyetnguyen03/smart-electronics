@@ -8,8 +8,10 @@ require 'src/Exception.php';
 require 'vendor/autoload.php';
 class mailer
 {
-    function dathangmail($tieude, $noidung, $maildathang)
+    function dathangmail()
     {
+        $mailDatHang = $_POST['email'];
+        $nameDatHang = $_POST['name'];
         $mail = new PHPMailer(true); //true:enables exceptions
         try {
             $mail->SMTPDebug = 0; //0,1,2: chế độ debug. khi chạy được thì chỉnh lại 0 
@@ -17,18 +19,16 @@ class mailer
             $mail->CharSet = "utf-8";
             $mail->Host = 'smtp.gmail.com'; //SMTP servers
             $mail->SMTPAuth = true; // Enable authentication
-            $mail->Username = 'tuyetnguyen030202@gmail.com'; // SMTP username
-            $mail->Password = 'jaayhffnrbuchkpm'; // SMTP password
+            $mail->Username = 'khanhpvph17641@fpt.edu.vn'; // SMTP username
+            $mail->Password = 'ayvgnvrfmlspidqj'; // SMTP password
             $mail->SMTPSecure = 'ssl'; // mã hoá theo kiểu encryption TLS/SSL
             $mail->Port = 465; // cổng port to connect to                
 
             $mail->setFrom('tuyetnguyen030202@gmail.com', 'Smart Electronics');
-            $mail->addAddress($maildathang, 'NTTuyet'); //mail và tên người nhận  
-            //  $mail->addAddress('23a4040022@bav.edu.vn', 'dungba');
-            $mail->addCC('tuyetnguyen030202@gmail.com');
+            $mail->addAddress($mailDatHang, $nameDatHang); //mail và tên người nhận
             $mail->isHTML(true); // Set email format to HTML
-            $mail->Subject = $tieude;
-            $mail->Body = $noidung;
+            $mail->Subject = 'CÁM ƠN BẠN ĐÃ ĐẶT HÀNG';
+            $mail->Body = 'FIX BUG';
             $mail->smtpConnect(
                 array(
                     "ssl" => array(
