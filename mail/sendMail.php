@@ -19,11 +19,13 @@ class mailer
         if ($optionDatHang == $option) {
             $img = 'https://static.wixstatic.com/media/9d8ed5_810e9e3b7fad40eca3ec5087da674662~mv2.png/v1/fill/w_1182,h_1182,al_c/9d8ed5_810e9e3b7fad40eca3ec5087da674662~mv2.png';
             $key = '<b>Vui Lòng Chuyển Khoản Vào <br/> Vietcombank <br/> 111111111</b>';
-            $price = number_format($priceTotal) + 'VND';
+            $price = $priceTotal;
+            $fomartVND = 'VND';
             $style = '#006600';
         } else {
             $price = '';
             $style = '#999999';
+            $fomartVND = '';
             $img = 'https://img.freepik.com/premium-vector/thank-you-hand-drawn-premium-quality-vector-lettering-white-quote-black-background_167715-3262.jpg';
             $key = 'Cám ơn bạn đã đặt hàng<br/>';
         }
@@ -37,7 +39,7 @@ class mailer
                   '.$key.'
                 </p>
                 <p style="margin-bottom: 0;color: #efb329; font-size: 13px; line-height: 24px; font-weight: 400; text-decoration: none; color: #ffffff;">
-                  '. $price. ' 
+                  '. $price .' '.$fomartVND.'
                 </p>
               </td>
             </tr>
