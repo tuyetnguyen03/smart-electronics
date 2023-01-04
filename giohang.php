@@ -222,6 +222,7 @@
 										<input type="text" class="form-control" placeholder="Email" name="email" required="">
 									</div>
 									<div class="controls form-group">
+										<input type="hidden" name="price" value="<?= $total ?>" >
 										<input type="text" class="form-control" placeholder="Password" name="password" required="">
 									</div>
 									<?php
