@@ -1,4 +1,5 @@
 <?php
+session_start();
 $con = mysqli_connect("localhost","root","","shop");
 
 // Check connection
@@ -54,9 +55,9 @@ if (mysqli_connect_errno())
 
 <body>
 	<?php
-    require("topbar.php");
-    require("menu.php");
-    require("slider.php");
+    include("topbar.php");
+	include("menu.php");
+	include("slider.php");
 	
 
 	if(isset($_GET['quanly'])){
@@ -70,7 +71,7 @@ if (mysqli_connect_errno())
 	}elseif($tam=='chitietsp'){
 		require("chitietsp.php");
 	}elseif($tam=='giohang') {
-        require("giohang.php");
+        require("giohang2.php");
 	}elseif ($tam=='timkiem') {
 		include('include/timkiem.php');
 	}elseif ($tam=='tintuc') {
@@ -78,7 +79,7 @@ if (mysqli_connect_errno())
 	}elseif ($tam=='chitiettin') {
 		include('include/chitiettin.php');
 	}elseif ($tam=='xemdonhang') {
-		include('include/xemdonhang.php');
+		require('xemdonhang.php');
 	}
 	elseif ($tam=='timkiemtheogia') {
 		include('include/timkiemtheogia.php');

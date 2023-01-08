@@ -29,20 +29,31 @@
 								<span class="sr-only">(current)</span>
 							</a>
 						</li>
-						<?php 
-							$sql_category_danhmuc = mysqli_query($con,'SELECT * FROM tbl_category ORDER BY category_id DESC');
-							while($row_category_danhmuc = mysqli_fetch_array($sql_category_danhmuc)){
-						?>
-						<li class="nav-item  mr-lg-2 mb-lg-0 mb-2">
+						</li>
+												<li class="nav-item  mr-lg-2 mb-lg-0 mb-2">
 
-							<a class="nav-link " href="?quanly=danhmuc&id=<?php echo $row_category_danhmuc['category_id'] ?>" role="button"  aria-haspopup="true" aria-expanded="false">
-								<?php echo $row_category_danhmuc['category_name'] ?>
-							</a>
+							<a class="nav-link " href="?quanly=category&id=4" role="button"  aria-haspopup="true" aria-expanded="false">
+								Dụng cụ học tập 							</a>
 							
 						</li>
-						<?php
-						} 
-						?>
+												<li class="nav-item  mr-lg-2 mb-lg-0 mb-2">
+
+							<a class="nav-link " href="?quanly=category&id=3" role="button"  aria-haspopup="true" aria-expanded="false">
+								Trang trí							</a>
+							
+						</li>
+												<li class="nav-item  mr-lg-2 mb-lg-0 mb-2">
+
+							<a class="nav-link " href="?quanly=category&id=2" role="button"  aria-haspopup="true" aria-expanded="false">
+								Đồ chơi							</a>
+							
+						</li>
+												<li class="nav-item  mr-lg-2 mb-lg-0 mb-2">
+
+							<a class="nav-link " href="?quanly=category&id=1" role="button"  aria-haspopup="true" aria-expanded="false">
+								Phụ kiện thời trang							</a>
+							
+						</li>
 						<li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
 							<?php
 							$sql_danhmuctin = mysqli_query($con,"SELECT * FROM tbl_danhmuc_tin ORDER BY danhmuctin_id DESC"); 
@@ -52,27 +63,12 @@
 								Tin tức
 							</a>
 							<div class="dropdown-menu">
-								<?php
-								while($row_danhmuctin = mysqli_fetch_array($sql_danhmuctin)){ 
-								?>
-								<a class="dropdown-item" href="?quanly=tintuc&id_tin=<?php echo $row_danhmuctin['danhmuctin_id'] ?>"><?php echo $row_danhmuctin['tendanhmuc'] ?></a>
-								<?php
-								} 
-								?>
+								<a class="dropdown-item" href="?quanly=tintuc&id_tin=1">Thông tin dụng cụ học tập</a>
+								<a class="dropdown-item" href="?quanly=tintuc&id_tin=2">Thông tin trang trí</a>
+								<a class="dropdown-item" href="?quanly=tintuc&id_tin=3">Thông tin đồ chơi</a>
+								<a class="dropdown-item" href="?quanly=tintuc&id_tin=4">Thông tin phụ kiện thời trang</a>
 							</div>
 						</li>
-						<!--<li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Trang
-							</a>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" href="product.html">Sản phẩm mới</a>
-
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="checkout.html">Kiểm tra hàng</a>
-								<a class="dropdown-item" href="payment.html">Thanh toán</a>
-							</div>
-						</li> -->
 						<li class="nav-item">
 							<a class="nav-link" href="?quanly=lienhe">Liên hệ</a>
 						</li>
