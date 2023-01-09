@@ -52,7 +52,7 @@
 
  }
  	elseif(isset($_POST['thanhtoandangnhap'])){
- 		header("location:index.php?quanly=thanhtoan");
+ 		// header("location:index.php?quanly=thanhtoan");
 }
 
 ?>

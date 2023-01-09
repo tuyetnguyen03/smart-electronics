@@ -59,7 +59,7 @@ if (isset($_POST['dangnhap_home'])) {  //tồn tại khi ấn submit đăng nh�
 				<ul>
 
 					<?php
-					if (isset($_SESSION['dangnhap_home'])) {
+					if (empty($_SESSION['dangnhap_home'])) {
 
 					?>
 
