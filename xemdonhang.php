@@ -30,12 +30,14 @@
 							<div class="col-md-12">
 								
 								<?php
-								if(isset($_GET['khachhang'])){
-									$id_khachhang = $_GET['khachhang'];
+								if(isset($_SESSION['id'] )){
+									$id_khachhang = $_SESSION['id'] ;
 								}else{
-									$id_khachhang = '';
+									$id_khachhang = $_SESSION['id'] ;
 								}
-								$sql_select = mysqli_query($con,"SELECT * FROM tbl_giaodich WHERE tbl_giaodich.khachhang_id='$id_khachhang' GROUP BY tbl_giaodich.magiaodich"); 
+								$sql_select = mysqli_query($con,"SELECT * FROM tbl_giaodich WHERE
+								 tbl_giaodich.khachhang_id= $id_khachhang
+								 GROUP BY tbl_giaodich.ngaythang DESC"); 
 								?> 
 								<table class="table table-bordered ">
 									<tr>
@@ -55,11 +57,11 @@
 									<tr>
 										<td><?php echo $i; ?></td>
 										
-										<td><?php echo $row_donhang['magiaodich']; ?></td>
-									
+										<td><?php echo $row_donhang['magiaodich']; $key = $row_donhang['magiaodich'] ?></td>
+
 										
 										<td><?php echo $row_donhang['ngaythang'] ?></td>
-										<td><a href="index.php?quanly=xemdonhang&khachhang=<?php echo $_SESSION['khachhang_id'] ?>&magiaodich=<?php echo $row_donhang['magiaodich'] ?>">Xem chi tiết</a></td>
+										<td><a href="index.php?quanly=xemdonhang&khachhang=<?php echo $_SESSION['id'] ?>&magiaodich=<?php echo $row_donhang['magiaodich'] ?>">Xem chi tiết</a></td>
 										<td><?php 
 										if($row_donhang['tinhtrangdon']==0){
 											echo 'Đã đặt hàng';
@@ -71,11 +73,11 @@
 											<?php
 											if($row_donhang['huydon']==0){  
 											?>
-											<a href="index.php?quanly=xemdonhang&khachhang=<?php echo $_SESSION['khachhang_id'] ?>&magiaodich=<?php echo $row_donhang['magiaodich'] ?>&huydon=1">Yêu cầu hủy</a>
+											<a href="index.php?quanly=xemdonhang&khachhang=<?php echo $_SESSION['id'] ?>&magiaodich=<?php echo $row_donhang['magiaodich'] ?>&huydon=1">Yêu cầu hủy</a>
 											<?php
 										}elseif($row_donhang['huydon']==2){		//huydon=2: admin đã chấp nhận huỷ đơn 							
+												echo 'Đã hủy';
 											?>
-											<h6>Đã hủy</h6>
 											<?php
 											}elseif($row_donhang['huydon']==1){  //huydon=1: đang chờ xử lý
 												echo 'Đang chờ huỷ...';
@@ -93,12 +95,11 @@
 							<div class="col-md-12">
 								<p>Chi tiết đơn hàng</p><br>
 								<?php
-								if(isset($_GET['magiaodich'])){
-									$magiaodich = $_GET['magiaodich'];
-								}else{
-									$magiaodich = '';
-								}
-								$sql_select = mysqli_query($con,"SELECT * FROM tbl_giaodich,tbl_khachhang,tbl_sanpham WHERE tbl_giaodich.sanpham_id=tbl_sanpham.sanpham_id AND tbl_khachhang.khachhang_id=tbl_giaodich.khachhang_id AND tbl_giaodich.magiaodich='$magiaodich' ORDER BY tbl_giaodich.giaodich_id DESC"); 
+								global $key;
+								$sql_select = mysqli_query($con,"SELECT * FROM tbl_giaodich,tbl_sanpham WHERE 
+								tbl_giaodich.sanpham_id=tbl_sanpham.sanpham_id
+								AND tbl_giaodich.magiaodich='$key'
+								ORDER BY tbl_giaodich.giaodich_id DESC");
 								?> 
 								<table class="table table-bordered ">
 									<tr>

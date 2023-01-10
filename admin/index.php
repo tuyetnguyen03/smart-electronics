@@ -1,7 +1,6 @@
 <?php
-session_start();
-$con = mysqli_connect("localhost","root","","shop");
-
+	session_start();
+	$con = mysqli_connect("localhost", "root", "", "shop");
 ?>
 <?php
 	// session_destroy();
@@ -16,7 +15,7 @@ $con = mysqli_connect("localhost","root","","shop");
 		if($taikhoan=='' || $matkhau ==''){
 			echo '<p>Xin nhập đủ</p>';
 		}else{
-			$sql_select_admin = mysqli_query($con,"SELECT * FROM tbl_admin WHERE email='$taikhoan' AND password='$matkhau' LIMIT 1");
+			$sql_select_admin = mysqli_query($con,"SELECT * FROM admin WHERE email='$taikhoan' AND password='$matkhau' LIMIT 1");
 			$count = mysqli_num_rows($sql_select_admin);
 			$row_dangnhap = mysqli_fetch_array($sql_select_admin);
 			if($count>0 &&($input==$_SESSION['captcha'])){

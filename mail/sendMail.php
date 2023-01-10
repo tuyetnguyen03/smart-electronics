@@ -15,7 +15,7 @@ class mailer
         $nameDatHang = $_POST['name'];
         $optionDatHang = $_POST['giaohang'];
         $mail = new PHPMailer(true); //true:enables exceptions
-        $priceTotal = $_POST['price'];
+        $priceTotal = $_POST['price_total'];
         if ($optionDatHang == $option) {
             $img = 'https://static.wixstatic.com/media/9d8ed5_810e9e3b7fad40eca3ec5087da674662~mv2.png/v1/fill/w_1182,h_1182,al_c/9d8ed5_810e9e3b7fad40eca3ec5087da674662~mv2.png';
             $key = '<b>Vui Lòng Chuyển Khoản Vào <br/> Vietcombank <br/> 111111111</b>';
@@ -39,7 +39,7 @@ class mailer
                   '.$key.'
                 </p>
                 <p style="margin-bottom: 0;color: #efb329; font-size: 13px; line-height: 24px; font-weight: 400; text-decoration: none; color: #ffffff;">
-                  '. $price .' '.$fomartVND.'
+                  '.$price.' '.$fomartVND.'
                 </p>
               </td>
             </tr>
