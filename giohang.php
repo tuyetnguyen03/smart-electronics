@@ -48,8 +48,6 @@ if (isset($_POST['themgiohang'])) { //tồn tại khi ấn thêm giỏ hàng
     $dia_chi_khachhang = $_POST['address'];
     $tong_tien_khachhang = $_POST['price_total'];
     $note_khachhang = $_POST['note'];
-    $status_khachhang = $_POST['status'];
-    $gia = $_POST['giasanpham'];
     $date = Date('Y-m-d h:i');
     if (!isset($_SESSION['dangnhap_home'])) {
 
@@ -62,15 +60,19 @@ if (isset($_POST['themgiohang'])) { //tồn tại khi ấn thêm giỏ hàng
     for ($i = 0; $i < count($_POST['thanhtoan_product_id']); $i++) { //chạy từ i=0 đến hết sản phẩm thanh toán
         $sanpham_id = $_POST['thanhtoan_product_id'][$i];  //lần lượt lưu mã sp và sl
         $soluong = $_POST['thanhtoan_soluong'][$i];
-
-        mysqli_query($con, "INSERT INTO tbl_khachhang(name, nguoidung_id, email, sdt, dia_chi, tong_tien, note)
+        
+        $gia = $_POST['giasanpham'];
+        $optionDatHang = $_POST['giaohang'];
+        mysqli_query($con, "INSERT INTO tbl_khachhang(name, nguoidung_id, email, phone, address, tong_tien, note)
         values ('$name_khachhang','$nguoidung_id','$email_khachhang','$sdt_khachhang','$dia_chi_khachhang','$tong_tien_khachhang','$note_khachhang')");
         $khach_hang_id = mysqli_insert_id($con);
+        
 
-        mysqli_query($con, "INSERT INTO tbl_donhang(khachhang_id, san_pham_id, so_luong, gia, ma_don_hang, giaohang, thoi_gian_dat) 
-        values ('$khach_hang_id','$sanpham_id','$soluong', '$gia','$mahang', '$giaohang', '$date')"); //lần lượt insert vào bảng đơn hàng
+        mysqli_query($con, "INSERT INTO tbl_donhang
+               (khachhang_id, sanpham_id, soluong, mahang, pthuc, thoi_gian_dat, tinhtrang, nguoidung_id) 
+        values ('$khach_hang_id','$sanpham_id','$soluong','$mahang', '$giaohang', '$date', 0, $id_nguoidung)"); //lần lượt insert vào bảng đơn hàng
         $don_hang_id = mysqli_insert_id($con);
-
+       // 	sanpham_id	soluong	pthuc	mahang	khachhang_id	thoi_gian_dat	tinhtrang
         $sql_donhang_chitiet = mysqli_query($con, "INSERT INTO tbl_giaodich(don_hang_id, san_pham_id, so_luong, gia) 
         values ('$don_hang_id','$sanpham_id','$soluong', '$gia')"); //lần lượt insert vào bảng đơn hàng
 
@@ -92,11 +94,6 @@ if (isset($_POST['themgiohang'])) { //tồn tại khi ấn thêm giỏ hàng
 
         <!-- //tittle heading -->
         <div class="checkout-right">
-
-            <!--  -->
-            <!-- kết nối và thực hiện lệnh select bảng giỏ hàng theo mã giỏ hàng mới nhất có bn hiện hết lên
-            $sql_lay_giohang = mysqli_query($con,"SELECT * FROM tbl_giohang ORDER BY giohang_id DESC"); -->
-
             <div class="table-responsive">
                 <form action="" method="POST">
 
@@ -117,6 +114,7 @@ if (isset($_POST['themgiohang'])) { //tồn tại khi ấn thêm giỏ hàng
                             <?php
                             $i = 0;
                             $total = 0;
+                            $sql_lay_giohang = "SELECT * FROM tbl_giohang ORDER BY giohang_id DESC";
                             $kq1 = mysqli_query($con, $sql_lay_giohang);
 
                             while ($row_fetch_giohang = mysqli_fetch_assoc($kq1)) {  //duyệt qua từng mã giỏ hàng
@@ -140,6 +138,7 @@ if (isset($_POST['themgiohang'])) { //tồn tại khi ấn thêm giỏ hàng
                                     <td class="invert"><?php echo $row_fetch_giohang['tensanpham'] ?></td>
                                     <td class="invert"><?php echo number_format($row_fetch_giohang['giasanpham']) . 'vnđ' ?></td>
                                     <!-- hiển thị tổng tiền của từng sp -->
+                                    <?php $keyGia = $row_fetch_giohang['giasanpham'] ?>
                                     <td class="invert"><?php echo number_format($subtotal) . 'vnđ' ?></td>
                                     <td class="invert">
                                         <!-- ấn xoá lấy lại mã giỏ hàng muốn xoá và chuyển đến phần xoá isset get xoa-->
@@ -168,7 +167,7 @@ if (isset($_POST['themgiohang'])) { //tồn tại khi ấn thêm giỏ hàng
                 </form>
 
                 <?php if (!empty($_SESSION["id"])) { ?>
-                    <?php $thongtin_nguoidung = "SELECT * FROM tbl_nguoidung WHERE nguoi_dung_id = $id_nguoidung";
+                    <?php $thongtin_nguoidung = "SELECT * FROM tbl_nguoidung WHERE nguoidung_id = $id_nguoidung";
                     $nguoiDung = mysqli_query($con, $thongtin_nguoidung);
                     ?>
                     <form action="" method="post" class="creditly-card-form agileinfo_form">
@@ -196,6 +195,7 @@ if (isset($_POST['themgiohang'])) { //tồn tại khi ấn thêm giỏ hàng
                                                             <div class="controls">
                                                                 <input type="text" class="form-control" value="<?= $nguoi_dung['address'] ?>" placeholder="Địa chỉ" name="address" required="">
                                                             </div>
+                                                            <input type="hidden" name="giasanpham" value="<?php  echo $keyGia ?>">
                                                         </div>
                                                     </div>
                                                     <div class="controls form-group">
@@ -220,7 +220,7 @@ if (isset($_POST['themgiohang'])) { //tồn tại khi ấn thêm giỏ hàng
                                                 <?php
 
                                                 //lấy ra tt từ bảng giỏ hàng theo mã giỏ hàng vừa thêm
-                                                $sql_lay_giohang = "SELECT * FROM tbl_giohang WHERE khachhang_id='$id_khachhang' ORDER BY giohang_id DESC";
+                                                $sql_lay_giohang = "SELECT * FROM tbl_giohang WHERE khachhang_id='$id_nguoidung' ORDER BY giohang_id DESC";
                                                 $kq2 = mysqli_query($con, $sql_lay_giohang);
                                                 while ($row_thanhtoan = mysqli_fetch_array($kq2)) {
                                                 ?>

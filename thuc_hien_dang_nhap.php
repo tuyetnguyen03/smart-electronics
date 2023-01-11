@@ -14,7 +14,7 @@ if ($ketQuaTruyVan->num_rows == 1) {
     session_start();
     $_SESSION["login"] = $each;
     // var_dump($_SESSION['login']);
-    $_SESSION["id"] = $each['nguoi_dung_id'];
+    $_SESSION["id"] = $each['nguoidung_id'];
     $_SESSION["ten_dang_nhap"] = $each['name'];
     header('location:index.php?tb=Dang nhap thanh cong');
 } else {

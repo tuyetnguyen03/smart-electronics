@@ -27,15 +27,7 @@
 						} ?>
 						<div class="col-md-12">
 							<?php
-							if (isset($_SESSION['id'])) {
-								$id_khachhang = $_SESSION['id'];
-							} else {
-								$id_khachhang = $_SESSION['id'];
-							}
-							$sql_select = mysqli_query($con, "SELECT * FROM tbl_donhang WHERE tbl_donhang.khachhang_id = $id_khachhang
-							 GROUP BY tbl_giaodich.thoi_gian_dat DESC");
-							?>
-							?>
+							
 							?>
 							<table class="table table-bordered ">
 								<tr>
@@ -49,46 +41,32 @@
 								</tr>
 								<?php
 								$i = 0;
-								while ($row_donhang = mysqli_fetch_array($sql_select)) {
+								if (isset($_SESSION['id'])) {
+									$id_khachhang = $_SESSION['id'];
+								} else {
+									$id_khachhang = 1;
+								}
+								$sql_select = "SELECT * FROM tbl_donhang WHERE tbl_donhang.nguoidung_id = $id_khachhang
+								 ORDER BY tbl_donhang.thoi_gian_dat DESC";
+								$row_donhang = mysqli_fetch_assoc(mysqli_query($con, $sql_select));
+								foreach ($row_donhang as $row_donhang2) {
 									$i++;
-								?>
-									?>
-									?>
+									if (is_array($row_donhang2)) {
+										?>
 									<tr>
 										<td><?php echo $i; ?></td>
-
-										<td><?php echo $row_donhang['ma_don_hang'];
-											$key = $row_donhang['ma_don_hang'] ?></td>
-										<td><?php echo $row_donhang['thoi_gian_dat'] ?></td>
+										<td><?php echo $row_donhang2['donhang_id']; ?></td>
 										<td>
-											<a href="index.php?quanly=chi_tiet_don_hang=<?php echo $row_donhang['ma_don_hang'] ?>">
+											<a href="index.php?quanly=chi_tiet_don_hang=<?php echo $row_donhang2['donhang_id'] ?>">
 												Xem chi tiết
 											</a>
 										</td>
-										<td><?php
-											if ($row_donhang['tinhtrangdon'] == 0) {
-												echo 'Đã đặt hàng';
-											} else {
-												echo 'Đã xử lý | Đang giao hàng';
-											}
-											?></td>
+									
 										<td>
-											<?php
-											if ($row_donhang['huydon'] == 0) {
-											?>
-												<a href="index.php?quanly=xemdonhang&khachhang=<?php echo $_SESSION['id'] ?>&magiaodich=<?php echo $row_donhang['magiaodich'] ?>&huydon=1">Yêu cầu hủy</a>
-											<?php
-											} elseif ($row_donhang['huydon'] == 2) {		//huydon=2: admin đã chấp nhận huỷ đơn 							
-												echo 'Đã hủy';
-											?>
-											<?php
-											} elseif ($row_donhang['huydon'] == 1) {  //huydon=1: đang chờ xử lý
-												echo 'Đang chờ huỷ...';
-											}
-											?>
+											
 										</td>
 									</tr>
-								<?php } ?>
+								<?php }} ?>
 							</table>
 						</div>
 					</div>

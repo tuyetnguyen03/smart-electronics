@@ -3,7 +3,6 @@
 $ho_ten= $_POST['names'];
 $dien_thoai= $_POST['phone'];
 $dia_chi= $_POST['address'];
-$ghi_chu= $_POST['note'];
 $email= $_POST['email'];
 $mat_khau= $_POST['password'];
 
@@ -11,7 +10,7 @@ $con = mysqli_connect("localhost","root","","shop");
 
 
 
-$sql = " INSERT INTO `tbl_nguoidung` (`name`,`phone`,`address`,`note`,`email`,`password`) VALUES ('".$ho_ten."', '".$dien_thoai."','".$dia_chi."','".$ghi_chu."','".$email."','".$mat_khau."')";
+$sql = " INSERT INTO `tbl_nguoidung` (`name`,`phone`,`address`,`email`,`password`) VALUES ('".$ho_ten."', '".$dien_thoai."','".$dia_chi."','".$email."','".$mat_khau."')";
 // die($sql);
 if($con->query($sql)){
     echo"<script>
