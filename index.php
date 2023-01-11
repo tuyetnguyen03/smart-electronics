@@ -79,7 +79,10 @@ if ($tam == 'danhmuc') {
     include('include/chitiettin.php');
 } elseif ($tam == 'xemdonhang') {
     require('xemdonhang.php');
-} elseif ($tam == 'thanhtoan') {
+} elseif ($tam == 'chi_tiet_don_hang') {
+    require('chi_tiet_don_hang.php');
+}
+elseif ($tam == 'thanhtoan') {
     require('thanhtoan.php');
 } elseif ($tam == 'timkiemtheogia') {
     include('include/timkiemtheogia.php');

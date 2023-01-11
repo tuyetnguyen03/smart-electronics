@@ -4,7 +4,7 @@ $matKhau = $_POST['password'];
 
 $con = mysqli_connect("localhost","root","","shop");
 
-$sql = "SELECT * FROM `tbl_khachhang` WHERE `email` = '" . $tenDangNhap . "' AND password = '" . $matKhau . "'";
+$sql = "SELECT * FROM `tbl_nguoidung` WHERE `email` = '" . $tenDangNhap . "' AND password = '" . $matKhau . "'";
 $ketQuaTruyVan = $con->query($sql);
 // die($sql);
 $each = mysqli_fetch_array($ketQuaTruyVan);
@@ -14,7 +14,7 @@ if ($ketQuaTruyVan->num_rows == 1) {
     session_start();
     $_SESSION["login"] = $each;
     // var_dump($_SESSION['login']);
-    $_SESSION["id"] = $each['khachhang_id'];
+    $_SESSION["id"] = $each['nguoi_dung_id'];
     $_SESSION["ten_dang_nhap"] = $each['name'];
     header('location:index.php?tb=Dang nhap thanh cong');
 } else {

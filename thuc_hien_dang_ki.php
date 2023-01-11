@@ -11,7 +11,7 @@ $con = mysqli_connect("localhost","root","","shop");
 
 
 
-$sql = " INSERT INTO `tbl_khachhang` (`name`,`phone`,`address`,`note`,`email`,`password`) VALUES ('".$ho_ten."', '".$dien_thoai."','".$dia_chi."','".$ghi_chu."','".$email."','".$mat_khau."')";
+$sql = " INSERT INTO `tbl_nguoidung` (`name`,`phone`,`address`,`note`,`email`,`password`) VALUES ('".$ho_ten."', '".$dien_thoai."','".$dia_chi."','".$ghi_chu."','".$email."','".$mat_khau."')";
 // die($sql);
 if($con->query($sql)){
     echo"<script>
